@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -31,9 +31,11 @@ import { formatMoney } from '../helpers/functions';
 
 import arrow from '../icons/arrow.svg';
 
+import { SavingsArray } from '../types';
+
 const Edit: React.FunctionComponent = () => {
   const history = useHistory();
-  const match = useParams();
+  const match = useParams<{ id: string }>();
   const today = new Date();
   const defaultDate = new Date(today.setMonth(today.getMonth() + 1));
   const [selectedPeriod, setSelectedPeriod] = useState(defaultDate);
@@ -124,7 +126,7 @@ const Edit: React.FunctionComponent = () => {
     if (match) {
       const { id } = match;
       const res = localStorage.getItem('savingCardsArray');
-      const savingCardsArray = JSON.parse(res);
+      const savingCardsArray: SavingsArray = JSON.parse(res);
       const selectedCard = savingCardsArray.filter(card => card.id === id);
       const { label, icon } = selectedCard[0];
       setSavingArray(savingCardsArray);
